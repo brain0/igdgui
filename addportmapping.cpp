@@ -5,7 +5,13 @@
 #include "addportmapping.h"
 
 AddPortMappingDialog::AddPortMappingDialog(QWidget *parent, IGDDevice *igd) : QDialog(parent), igd(igd) {
+  const char *ip;
+
   setupUi(this);
+
+  ip = igd->getLanIp();
+  if(ip != NULL)
+    internalIPAddressLineEdit->setText(ip);
 
   connect( buttonBox, SIGNAL( clicked( QAbstractButton* ) ), this, SLOT( buttonBoxClicked( QAbstractButton* ) ) );
 }
