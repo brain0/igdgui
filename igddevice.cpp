@@ -1,6 +1,7 @@
 #include "igddevice.h"
 #include <QString>
 #include <cstring>
+#include <miniupnpc/upnperrors.h>
 
 ScanThread::ScanThread(QObject *parent, UPNPDev*& devlist, QMutex& devlist_mutex) : QThread(parent), devlist(devlist), devlist_mutex(devlist_mutex) {}
 
@@ -116,7 +117,7 @@ void IGDDevice::readPortMappingsIntoModel() {
   mForwardData->sort(0);
 }
 
-bool IGDDevice::deletePortMapping(QStandardItem *m) {
+bool IGDDevice::deletePortMapping(QString &error, QStandardItem *m) {
   int r;
   uint p;
   const char *pStr;
@@ -134,6 +135,8 @@ bool IGDDevice::deletePortMapping(QStandardItem *m) {
   if(!r) {
     mForwardData->clear();
     readPortMappingsIntoModel();
+  } else {
+    error.sprintf("%d: %s", r, strupnperror(r));
   }
   return !r;
 }

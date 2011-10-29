@@ -1,4 +1,5 @@
-#include <QtGui> 
+#include <QtGui>
+#include <QMessageBox>
 #include "igdgui.h"
  
 IgdGuiApp::IgdGuiApp(QWidget *parent) : QMainWindow(parent) {
@@ -39,7 +40,15 @@ void IgdGuiApp::ReadIGDData() {
 
 void IgdGuiApp::DeleteSelectedPortMapping() {
   QStandardItem *current;
+  QString error;
+  QMessageBox errorDlg;
+
   current = igd->getForwardDataModel()->itemFromIndex(forwardList->currentIndex());
   if(current != NULL)
-    igd->deletePortMapping(current);
+    if(!igd->deletePortMapping(error, current)) {
+      errorDlg.setIcon(QMessageBox::Critical);
+      errorDlg.setText("Could not remove port mapping:\n" + error);
+      errorDlg.setWindowTitle("IGD GUI Error");
+      errorDlg.exec();
+    }
 }
