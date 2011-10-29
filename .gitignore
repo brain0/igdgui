@@ -1,0 +1,8 @@
+*.o
+igdgui
+ui_*.h
+moc_*.cpp
+Makefile
+*~
+*.bak
+*.kate-swp
