@@ -3,13 +3,12 @@
  
 #include "ui_igdgui.h"
 #include "igddevice.h"
-  
+
 class IgdGuiApp : public QMainWindow, private Ui::igdGuiMainUi {
   Q_OBJECT
- 
+
 public:
   IgdGuiApp(QWidget *parent = 0);
- 
 private slots:
   void SetScanWaitStatus();
   void SetScanFinishedStatus();
@@ -18,5 +17,5 @@ public slots:
 private:
   IGDDevice *igd;
 };
-  
+
 #endif
