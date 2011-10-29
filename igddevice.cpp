@@ -20,6 +20,8 @@ void ScanThread::run() {
 
 IGDDevice::IGDDevice(QObject *parent) : QObject(parent), hasValidIGD(false), connected(false), devlist(NULL) {
   scanner = new ScanThread(this, devlist, devlist_mutex);
+  connect( scanner, SIGNAL( finished() ), this, SIGNAL( IgdScanFinished() ) );
+  connect( scanner, SIGNAL( finished() ), this, SLOT( refresh() ) );
 
   mForwardData = new QStandardItemModel(this);
   mForwardData->setSortRole(PortProtoSortRole);
@@ -38,8 +40,6 @@ void IGDDevice::scan() {
   emit IgdStartScan();
   if(scanner->isRunning())
     return;
-  connect( scanner, SIGNAL( finished() ), this, SIGNAL( IgdScanFinished() ) );
-  connect( scanner, SIGNAL( finished() ), this, SLOT( refresh() ) );
   scanner->start();
 }
 
