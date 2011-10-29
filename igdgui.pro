@@ -8,3 +8,4 @@ sources.files = $$SOURCES $$HEADERS $$RESOURCES $$FORMS *.pro
 sources.path = .
 INSTALLS += target sources
 LIBS += -lminiupnpc
+#CONFIG += debug
