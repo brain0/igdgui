@@ -33,10 +33,12 @@ void IgdGuiApp::SetScanFinishedStatus() {
 void IgdGuiApp::ReadIGDData() {
   lANIPAddressLineEdit->clear();
   externalIPAddressLineEdit->clear();
+  connectedCheckBox->setCheckState(Qt::Unchecked);
   if(igd->validIGD()) {
     labelStatus->setText("Connected to valid UPnP IGD.");
     lANIPAddressLineEdit->setText(igd->getLanIp());
     externalIPAddressLineEdit->setText(igd->getExternalIp());
+    connectedCheckBox->setCheckState(igd->isConnected() ? Qt::Checked : Qt::Unchecked);
   } else {
     labelStatus->setText("No valid UPnP IGD found.");
   }

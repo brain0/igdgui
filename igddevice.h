@@ -54,6 +54,7 @@ public:
     }
     return externalip;
   }
+  bool isConnected() { return connected; }
   bool deletePortMapping(QString &error, QStandardItem *m);
   bool addPortMappingFromStrings(QString &error, const QString &ExtPort, const QString &Protocol, const QString &IntPort, const QString &IntClient, const QString &Description);
   QStandardItemModel *getForwardDataModel() { return mForwardData; }
@@ -65,7 +66,7 @@ signals:
   void IgdScanFinished();
   void IgdDataRefreshed();
 private:
-  bool hasValidIGD;
+  bool hasValidIGD, connected;
   ScanThread *scanner;
   QMutex devlist_mutex;
   struct UPNPDev *devlist, *dev;

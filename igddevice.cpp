@@ -18,7 +18,7 @@ void ScanThread::run() {
   devlist_mutex.unlock();
 }
 
-IGDDevice::IGDDevice(QObject *parent) : QObject(parent), hasValidIGD(false), devlist(NULL) {
+IGDDevice::IGDDevice(QObject *parent) : QObject(parent), hasValidIGD(false), connected(false), devlist(NULL) {
   scanner = new ScanThread(this, devlist, devlist_mutex);
 
   mForwardData = new QStandardItemModel(this);
@@ -50,6 +50,7 @@ void IGDDevice::refresh() {
     FreeUPNPUrls(&urls);
   mForwardData->clear();
   hasValidIGD = false;
+  connected = false;
 
   devlist_mutex.lock();
   i = UPNP_GetValidIGD(devlist, &urls, &data, lanaddr, sizeof(lanaddr));
@@ -61,6 +62,8 @@ void IGDDevice::refresh() {
       hasValidIGD = true;
       if(UPNP_GetExternalIPAddress(urls.controlURL, data.first.servicetype, externalip) != 0)
         externalip[0] = '\0';
+      if(UPNPIGD_IsConnected(&urls, &data))
+        connected = true;
       readPortMappingsIntoModel();
     }
   }
