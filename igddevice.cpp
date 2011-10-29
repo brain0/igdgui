@@ -1,5 +1,4 @@
 #include "igddevice.h"
-#include <QStandardItem>
 #include <QString>
 #include <cstring>
 
@@ -115,4 +114,26 @@ void IGDDevice::readPortMappingsIntoModel() {
       }
   } while(r==0);
   mForwardData->sort(0);
+}
+
+bool IGDDevice::deletePortMapping(QStandardItem *m) {
+  int r;
+  uint p;
+  const char *pStr;
+
+  if(!validIGD())
+    return false;
+  p = m->data(ProtocolRole).toUInt();
+  if(p == ProtoTcp)
+    pStr = "TCP";
+  else if(p == ProtoUdp)
+    pStr = "UDP";
+  else
+    return false;
+  r = UPNP_DeletePortMapping(urls.controlURL, data.first.servicetype, m->data(ExternalPortRole).toString().toAscii().constData(), pStr, NULL);
+  if(!r) {
+    mForwardData->clear();
+    readPortMappingsIntoModel();
+  }
+  return !r;
 }

@@ -5,6 +5,7 @@
 #include <QThread>
 #include <QMutex>
 #include <QStandardItemModel>
+#include <QStandardItem>
 #include <miniupnpc/miniupnpc.h>
 #include <miniupnpc/upnpcommands.h>
 
@@ -53,6 +54,7 @@ public:
     }
     return externalip;
   }
+  bool deletePortMapping(QStandardItem *m);
   QStandardItemModel *getForwardDataModel() { return mForwardData; }
 public slots:
   void scan();

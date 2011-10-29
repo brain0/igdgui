@@ -12,6 +12,7 @@ public:
 private slots:
   void SetScanWaitStatus();
   void SetScanFinishedStatus();
+  void DeleteSelectedPortMapping();
 public slots:
   void ReadIGDData();
 private:

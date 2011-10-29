@@ -8,10 +8,11 @@ IgdGuiApp::IgdGuiApp(QWidget *parent) : QMainWindow(parent) {
   connect( igd, SIGNAL( IgdScanFinished() ), this, SLOT( SetScanFinishedStatus() ) );
   connect( igd, SIGNAL( IgdDataRefreshed() ), this, SLOT( ReadIGDData() ) );
   igd->scan();
-  
+
   connect( buttonScan, SIGNAL( clicked() ), igd, SLOT( scan() ) );
   connect( buttonRefresh, SIGNAL( clicked() ), igd, SLOT( refresh() ) );
   connect( buttonQuit, SIGNAL( clicked() ), qApp, SLOT( closeAllWindows() ) );
+  connect( buttonDelete, SIGNAL( clicked() ), this, SLOT( DeleteSelectedPortMapping() ) );
 
   forwardList->setModel(igd->getForwardDataModel());
 }
@@ -34,4 +35,11 @@ void IgdGuiApp::ReadIGDData() {
   } else {
     labelStatus->setText("No valid UPnP IGD found.");
   }
+}
+
+void IgdGuiApp::DeleteSelectedPortMapping() {
+  QStandardItem *current;
+  current = igd->getForwardDataModel()->itemFromIndex(forwardList->currentIndex());
+  if(current != NULL)
+    igd->deletePortMapping(current);
 }
