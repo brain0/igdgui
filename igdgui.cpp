@@ -12,6 +12,8 @@ IgdGuiApp::IgdGuiApp(QWidget *parent) : QMainWindow(parent) {
   connect( buttonScan, SIGNAL( clicked() ), igd, SLOT( scan() ) );
   connect( buttonRefresh, SIGNAL( clicked() ), igd, SLOT( refresh() ) );
   connect( buttonQuit, SIGNAL( clicked() ), qApp, SLOT( closeAllWindows() ) );
+
+  forwardList->setModel(igd->getForwardDataModel());
 }
 
 void IgdGuiApp::SetScanWaitStatus() {

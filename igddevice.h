@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QThread>
 #include <QMutex>
+#include <QStandardItemModel>
 #include <miniupnpc/miniupnpc.h>
 #include <miniupnpc/upnpcommands.h>
 
@@ -26,6 +27,17 @@ public:
   IGDDevice(QObject *parent = NULL);
   ~IGDDevice();
   
+  static const int PortProtoSortRole = Qt::UserRole,
+                   ExternalPortRole = Qt::UserRole + 1,
+                   InternalIpRole = Qt::UserRole + 2,
+                   InternalPortRole = Qt::UserRole + 3,
+                   ProtocolRole = Qt::UserRole + 4,
+                   DescriptionRole = Qt::UserRole + 5,
+                   EnabledRole = Qt::UserRole + 6,
+                   RemoteHostRole = Qt::UserRole + 7,
+                   DurationRole = Qt::UserRole + 8;
+  static const uint ProtoInvalid = 2, ProtoTcp = 0, ProtoUdp = 1;
+
   bool validIGD() {
     return hasValidIGD;
   }
@@ -41,6 +53,7 @@ public:
     }
     return externalip;
   }
+  QStandardItemModel *getForwardDataModel() { return mForwardData; }
 public slots:
   void scan();
   void refresh();
@@ -56,6 +69,8 @@ private:
   struct UPNPUrls urls;
   struct IGDdatas data;
   char lanaddr[16], externalip[16];
+  QStandardItemModel *mForwardData;
+  void readPortMappingsIntoModel();
 };
 
 #endif
