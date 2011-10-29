@@ -1,0 +1,26 @@
+Very small parts of the source are taken from the upnpc.c file in
+the miniupnpc source.
+
+MiniUPnPc
+Copyright (c) 2005-2011, Thomas BERNARD
+All rights reserved.
+
+The 'igdgui' software has been written by Thomas Bächler and is
+available under the conditions of the GNU General Public License,
+version 2. See the file LICENSE for details.
+
+
+'igdgui' is a small Qt based GUI for managing UPnP IGD devices. It is
+based on the miniupnpc library, available at http://miniupnp.free.fr/.
+Features:
+- View internal and external IP address
+- View port forwardings
+- Add and delete port forwardings
+
+To build igdgui, you need to install miniupnpc 1.6 or later, and a recent
+version of Qt 4 (only tested with Qt 4.7). Run the following commands:
+ $ qmake igdgui.pro
+ $ make
+ $ ./igdgui
+
+Send patches, questions and suggestions to thomas@archlinux.org.
