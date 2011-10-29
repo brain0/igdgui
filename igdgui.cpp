@@ -1,7 +1,8 @@
 #include <QtGui>
 #include <QMessageBox>
 #include "igdgui.h"
- 
+#include "addportmapping.h"
+
 IgdGuiApp::IgdGuiApp(QWidget *parent) : QMainWindow(parent) {
   setupUi(this);
   igd = new IGDDevice(this);
@@ -14,6 +15,7 @@ IgdGuiApp::IgdGuiApp(QWidget *parent) : QMainWindow(parent) {
   connect( buttonRefresh, SIGNAL( clicked() ), igd, SLOT( refresh() ) );
   connect( buttonQuit, SIGNAL( clicked() ), qApp, SLOT( closeAllWindows() ) );
   connect( buttonDelete, SIGNAL( clicked() ), this, SLOT( DeleteSelectedPortMapping() ) );
+  connect( buttonNew, SIGNAL( clicked() ), this, SLOT( ShowAddPortMappingDialog() ) );
 
   forwardList->setModel(igd->getForwardDataModel());
 }
@@ -51,4 +53,12 @@ void IgdGuiApp::DeleteSelectedPortMapping() {
       errorDlg.setWindowTitle("IGD GUI Error");
       errorDlg.exec();
     }
+}
+
+void IgdGuiApp::ShowAddPortMappingDialog() {
+  AddPortMappingDialog *d = new AddPortMappingDialog(this, igd);
+  d->setAttribute(Qt::WA_DeleteOnClose);
+  d->show();
+  d->raise();
+  d->activateWindow();
 }

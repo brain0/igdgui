@@ -15,6 +15,7 @@ private slots:
   void DeleteSelectedPortMapping();
 public slots:
   void ReadIGDData();
+  void ShowAddPortMappingDialog();
 private:
   IGDDevice *igd;
 };

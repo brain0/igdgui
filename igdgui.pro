@@ -1,6 +1,6 @@
-HEADERS     = igdgui.h igddevice.h
-SOURCES     = igdgui.cpp main.cpp igddevice.cpp
-FORMS       = igdgui.ui
+HEADERS     = igdgui.h igddevice.h addportmapping.h
+SOURCES     = igdgui.cpp main.cpp igddevice.cpp addportmapping.cpp
+FORMS       = igdgui.ui addportmapping.ui
 
 # install
 target.path = igdgui

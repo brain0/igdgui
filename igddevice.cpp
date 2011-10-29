@@ -140,3 +140,22 @@ bool IGDDevice::deletePortMapping(QString &error, QStandardItem *m) {
   }
   return !r;
 }
+
+bool IGDDevice::addPortMappingFromStrings(QString &error, const QString &ExtPort, const QString &Protocol, const QString &IntPort, const QString &IntClient, const QString &Description) {
+  int r;
+  r = UPNP_AddPortMapping(urls.controlURL, data.first.servicetype,
+                          ExtPort.toAscii().constData(),
+                          IntPort.toAscii().constData(),
+                          IntClient.toAscii().constData(),
+                          Description.toAscii().constData(),
+                          Protocol.toAscii().constData(),
+                          NULL,
+                          NULL);
+  if(!r) {
+    mForwardData->clear();
+    readPortMappingsIntoModel();
+  } else {
+    error.sprintf("%d: %s", r, strupnperror(r));
+  }
+  return !r;
+}

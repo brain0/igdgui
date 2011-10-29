@@ -55,6 +55,7 @@ public:
     return externalip;
   }
   bool deletePortMapping(QString &error, QStandardItem *m);
+  bool addPortMappingFromStrings(QString &error, const QString &ExtPort, const QString &Protocol, const QString &IntPort, const QString &IntClient, const QString &Description);
   QStandardItemModel *getForwardDataModel() { return mForwardData; }
 public slots:
   void scan();
