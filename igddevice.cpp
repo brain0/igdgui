@@ -114,6 +114,7 @@ void IGDDevice::readPortMappingsIntoModel() {
         q->setData(duration, DurationRole);
         q->setData(ExtPort.toUInt()*2 + Protocol.toUInt(), PortProtoSortRole);
         q->setData(Description.toString() + " (" + protocol + " " + ExtPort.toString() + "->" + IntClient.toString() + ":" + IntPort.toString() + ")", Qt::DisplayRole);
+        q->setEditable(false);
         mForwardData->appendRow(q);
       }
   } while(r==0);
