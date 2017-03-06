@@ -9,7 +9,7 @@ void ScanThread::run() {
   int upnp_error;
   UPNPDev* my_devlist;
 
-  my_devlist = upnpDiscover(2000, NULL, NULL, 0, 0, &upnp_error);
+  my_devlist = upnpDiscover(2000, NULL, UPNP_LOCAL_PORT_ANY, 0, 0, 2, &upnp_error);
 
   devlist_mutex.lock();
   if(devlist != NULL)
