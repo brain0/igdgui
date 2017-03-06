@@ -87,7 +87,7 @@ void IGDDevice::readPortMappingsIntoModel() {
     enabled[0] = '\0';
     rHost[0] = '\0';
     duration[0] = '\0';
-    r = UPNP_GetGenericPortMappingEntry(urls.controlURL, data.first.servicetype, index.toAscii().constData(), extPort,
+    r = UPNP_GetGenericPortMappingEntry(urls.controlURL, data.first.servicetype, index.toLatin1().constData(), extPort,
                                         intClient, intPort, protocol, description, enabled, rHost, duration);
       if(r==0) {
         q = new QStandardItem;
@@ -135,7 +135,7 @@ bool IGDDevice::deletePortMapping(QString &error, QStandardItem *m) {
     pStr = "UDP";
   else
     return false;
-  r = UPNP_DeletePortMapping(urls.controlURL, data.first.servicetype, m->data(ExternalPortRole).toString().toAscii().constData(), pStr, NULL);
+  r = UPNP_DeletePortMapping(urls.controlURL, data.first.servicetype, m->data(ExternalPortRole).toString().toLatin1().constData(), pStr, NULL);
   if(!r) {
     mForwardData->clear();
     readPortMappingsIntoModel();
@@ -148,11 +148,11 @@ bool IGDDevice::deletePortMapping(QString &error, QStandardItem *m) {
 bool IGDDevice::addPortMappingFromStrings(QString &error, const QString &ExtPort, const QString &Protocol, const QString &IntPort, const QString &IntClient, const QString &Description) {
   int r;
   r = UPNP_AddPortMapping(urls.controlURL, data.first.servicetype,
-                          ExtPort.toAscii().constData(),
-                          IntPort.toAscii().constData(),
-                          IntClient.toAscii().constData(),
-                          Description.toAscii().constData(),
-                          Protocol.toAscii().constData(),
+                          ExtPort.toLatin1().constData(),
+                          IntPort.toLatin1().constData(),
+                          IntClient.toLatin1().constData(),
+                          Description.toLatin1().constData(),
+                          Protocol.toLatin1().constData(),
                           NULL,
                           NULL);
   if(!r) {

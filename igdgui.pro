@@ -9,3 +9,4 @@ sources.path = .
 INSTALLS += target sources
 LIBS += -lminiupnpc
 #CONFIG += debug
+QT += core widgets
