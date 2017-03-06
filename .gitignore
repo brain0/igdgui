@@ -3,6 +3,8 @@ igdgui
 ui_*.h
 moc_*.cpp
 Makefile
+.qmake.stash
+igdgui.pro.user
 *~
 *.bak
 *.kate-swp
